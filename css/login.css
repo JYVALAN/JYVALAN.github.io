@@ -1,0 +1,68 @@
+
+.logintitle {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.signuptext {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 14px;
+}
+
+.btnlogin{
+  padding: 10px;
+  background-color: #FBA506;
+  border: 0;
+  color: aliceblue;
+  border-radius: 6px;
+  margin-left: 420px;
+}
+
+.btnsignup{
+  padding: 10px;
+  background-color: #FBA506;
+  border: 0;
+  border-radius: 6px;
+}
+
+.btnsignup a {
+  color: aliceblue;
+}
+
+.loginpass, .loginemail {
+  margin-bottom: 20px;
+  padding: 8px 100px 8px 5px;
+  border: grey 1px solid;
+  width: 400px;
+}
+
+@media screen and (max-width: 760px) {
+  
+  .signuptext {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 14px;
+  }
+  
+  .loginpass, .loginemail {
+    margin-bottom: 20px;
+    padding: 8px 100px 8px 5px;
+    border: grey 1px solid;
+    width: 200px;
+  }
+
+  .btnsignup{
+    padding: 8px;
+    /* margin-left: 195px; */
+  }
+
+  .btnlogin{
+    margin-left: 225px;
+
+  }
+
+  .loginfield{
+    width: 325px;
+  }
+}

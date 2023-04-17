@@ -1,0 +1,35 @@
+.contactfield {
+  padding: 50px;
+  padding-top: 80px;
+}
+
+.contactinput, .contactarea {
+  margin-bottom: 20px;
+  padding: 8px 100px 8px 5px;
+  border: grey 1px solid;
+  width: 400px;
+}
+
+.contactarea{
+  padding-right: 100px;
+}
+
+@media screen and (max-width: 760px) {
+  .contactfield {
+    padding: 10px;
+    padding-top: 40px;
+
+  }
+
+  .contactinput, .contactarea {
+    margin-bottom: 20px;
+    padding: 8px 50px 8px 5px;
+    border: grey 1px solid;
+    width: 200px;
+  }
+  
+  .contactarea {
+    margin-bottom: 20px;
+    padding: 5px 50px 5px 5px;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "greta/otopix",
+  "license": "proprietary",
+  "type": "project",
+  "require": {
+    "ext-pdo": "*",
+    "maximebf/debugbar": "^1.18",
+    "tecnickcom/tcpdf": "^6.6",
+    "symfony/webpack-encore-bundle": "^1.16",
+    "symfony/var-dumper": "^6.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Otopix\\": "src/"
+    }
+  }
+}

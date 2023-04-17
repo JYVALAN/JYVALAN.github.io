@@ -1,0 +1,114 @@
+.containerpicture{
+    text-align: center;
+    padding-top: 50px;
+    color: #FFFFFF;
+}
+.clickedpicture{
+    max-width: 300px;
+    max-height: 300px;
+    padding-bottom: 20px;
+}
+
+.timepicture{
+ 
+}
+.categorypicture{
+    font-weight: bold;
+}
+.descriptionpicture{
+    font-size: 16px;
+}
+
+.dow, .fav{
+    background-color: #FFFFFF;
+    border: 0;
+
+    bottom: 100px;
+    left: 20px;
+    padding: 10px;
+    box-shadow: 4px 1px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+.fav{
+    left: 70px;
+}
+
+.figpicture{
+    position: relative;
+    margin: 0;
+    font-size: 20px;
+
+}
+
+.imgprofil{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    margin: 20px;
+    margin-right: 10px;
+    
+}
+
+.profiluser{
+    display: flex;
+    justify-content: center;
+}
+
+.lienprofil{
+    color: #FFFFFF;
+}
+
+@media screen AND (min-width: 500px) {
+    .clickedpicture{
+        max-width: 500px;
+        max-height: 500px;
+    }
+}
+
+@media screen AND (min-width: 760px) {
+    .clickedpicture{
+        max-width: 700px;
+        max-height: 700px;
+    }
+
+    .pictureinfo{
+        display: flex;
+        max-width: 1200px;
+        justify-content: center;
+        
+    }
+
+    .timepicture{
+        margin-top: 40px;
+        margin-right: 30px;
+    }
+    .categorypicture{
+        font-weight: bold;
+        margin-top: 40px;
+        margin-right: 30px;
+    }
+    .descriptionpicture{
+        font-size: 16px;
+        margin-top: 40px;
+        margin-right: 20px;
+        
+        padding-bottom: 70px;
+    }
+
+    .authorpicture{
+        margin-top: 40px;
+        margin-right: 30px;
+    }
+
+    .imgprofil{
+        margin-top: 40px;
+        
+    }
+}
+
+@media screen AND (min-width: 1000px) {
+    .clickedpicture{
+        max-width: 900px;
+        max-height: 900px;
+    }
+}

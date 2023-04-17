@@ -1,0 +1,641 @@
+body {
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  background-color: #403E3E;
+}
+
+.layout {
+  max-width: 1200px;
+  margin: auto;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+h1, h2, h4 {
+  font-family: "Comfortaa", cursive;
+}
+
+.Header {
+  position: relative;
+  min-height: 250px;
+  margin: auto;
+  background-color: #FFFFFF;
+}
+.Header-layout {
+  max-width: 1200px;
+  margin: auto;
+}
+.Header #burger {
+  position: relative;
+  margin-left: 0px;
+  z-index: 3;
+}
+.Header-nav {
+  display: flex;
+  padding-top: 15px;
+  margin: 0 40px;
+  min-height: 70px;
+  position: relative;
+  justify-content: space-around;
+}
+.Header-nav .searchbtn {
+  background-color: #DEDADA;
+  border: 0;
+  border-radius: 18px 0 0 18px;
+  padding: 1px;
+  padding-left: 5px;
+  margin-right: -6px;
+  margin-left: 5px;
+  padding: 5px;
+}
+.Header-nav-logo h1 {
+  margin: 0;
+  margin-right: 0px;
+  font-size: 20px;
+}
+.Header-nav-form {
+  display: flex;
+  text-align: center;
+  height: 18px;
+}
+.Header-nav-form-wen {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 30px;
+}
+.Header-nav-form input {
+  background-color: #DEDADA;
+  border: 0;
+  color: black;
+  border-radius: 0 18px 18px 0;
+  flex-grow: 1;
+  width: 100%;
+}
+.Header-nav-menu {
+  display: flex;
+}
+.Header-nav-menu-link {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0 15px;
+  font-size: 10px;
+}
+.Header-nav-menu .desktop {
+  display: none;
+}
+.Header-nav .active {
+  display: none;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  padding-top: 30px;
+}
+.Header-nav-link {
+  position: absolute;
+  right: -40px;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 10;
+  margin: 0;
+  padding: 50px 30px;
+  text-align: center;
+  font-family: "Comfortaa", cursive;
+}
+.Header-nav-link-menu {
+  margin-bottom: 20px;
+  background-color: white;
+  border: 0;
+  font-family: "Comfortaa", cursive;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}
+.Header-figure {
+  min-height: 130px;
+  margin: 0;
+  background-image: url(../img/takashi-miyazaki-vRzxHZ-rUGU-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Header-figure-form input {
+  max-width: 1200px;
+  border-radius: 0 18px 18px 0;
+  border: 0px;
+  padding: 5px;
+}
+.Header-figure .searchbtn {
+  background-color: white;
+  border: 0;
+  border-radius: 18px 0 0 18px;
+  padding: 5px;
+  margin-right: -3px;
+}
+.Header-figure-author {
+  color: white;
+  position: absolute;
+  bottom: 10px;
+  right: 40px;
+  margin: 0;
+  font-size: 8px;
+}
+.Header-profil {
+  display: flex;
+  margin: auto;
+  padding: 0 40px;
+  max-width: 1200px;
+  min-height: 130px;
+  align-items: center;
+  border-top: #000000 1px solid;
+}
+.Header-profil-img {
+  height: 80px;
+  width: 80px;
+  border-radius: 100%;
+  cursor: pointer;
+  position: relative;
+}
+.Header-profil-info-name {
+  margin: 5px 10px;
+}
+.Header-profil-info-role {
+  margin: 5px 10px;
+  color: gray;
+  font-size: 12px;
+}
+.Header-profil-info-bio {
+  margin: 5px 10px;
+  font-size: 12px;
+}
+.Header-profil-info-bio button {
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+.Header-none {
+  display: none;
+}
+.Header-bottom {
+  height: 50px;
+  background-color: black;
+}
+.Header-bottom-form {
+  text-align: center;
+}
+.Header-bottom-form select {
+  margin-top: 10px;
+  background-color: white;
+  border: 0px;
+  color: #403E3E;
+  padding: 6px;
+}
+
+.change-user-picture {
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  border-radius: 90%;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  top: 0px;
+  left: -1px;
+  z-index: 3;
+  padding: 40px 0px;
+  width: 100px;
+}
+
+.change-user-picture:hover::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 60px;
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.4117647059);
+  cursor: pointer;
+}
+
+.change-user-form {
+  position: relative;
+}
+
+.Container {
+  text-align: center;
+}
+.Container-h2 {
+  color: #FFFFFF;
+}
+.Container-box::after {
+  display: none;
+}
+.Container-box-imgbox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.Container-box-imgbox-fig {
+  margin-bottom: 20px;
+  position: relative;
+}
+.Container-box-imgbox-fig-name {
+  background-color: rgb(255, 255, 255);
+  margin: 0;
+  padding: 5px 30px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+}
+.Container-box-imgbox-fig-img {
+  width: 100%;
+}
+.Container-box-imgbox-fig-author {
+  color: #ffffff;
+  text-shadow: 0px 0px 5px #000000;
+  font-size: 15px;
+  display: block;
+  margin: 0;
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+}
+.Container-box-imgbox-fig .dow, .Container-box-imgbox-fig .fav {
+  background-color: #FFFFFF;
+  border: 0;
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  padding: 10px;
+  box-shadow: 4px 1px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+.Container-box-imgbox-fig .fav {
+  left: 70px;
+}
+
+.showfooter {
+  display: none;
+}
+
+.Footer {
+  background-color: #DEDADA;
+  height: 252px;
+}
+.Footer-topfooter {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px grey solid;
+  align-items: center;
+}
+.Footer-topfooter-name {
+  margin-left: 60px;
+}
+.Footer-topfooter-name-logo {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+.Footer-topfooter-name-slogan {
+  color: #006EAC;
+  font-size: 14px;
+}
+.Footer-topfooter-legal {
+  display: none;
+  flex-direction: column;
+}
+.Footer-topfooter-legal-title {
+  color: #006EAC;
+  font-size: 12px;
+}
+.Footer-topfooter-legal-link {
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+.Footer-topfooter-us {
+  display: none;
+  flex-direction: column;
+}
+.Footer-topfooter-us-title {
+  color: #006EAC;
+  font-size: 12px;
+}
+.Footer-topfooter-us-link {
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+.Footer-topfooter-nav {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  margin-right: 50px;
+}
+.Footer-topfooter-nav .signin {
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 6px;
+  color: white;
+  background-color: #FBA506;
+  border: 0;
+}
+.Footer-topfooter-nav .disconnect, .Footer-topfooter-nav .login {
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 6px;
+  color: #FBA506;
+  border: 1px solid #FBA506;
+}
+.Footer-topfooter-nav .signin a {
+  color: white;
+}
+.Footer-topfooter-nav .disconnect a, .Footer-topfooter-nav .login a {
+  color: #FBA506;
+}
+.Footer-bottomfooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-left: 70px;
+  margin-right: 70px;
+  font-size: 14px;
+  padding-bottom: 20px;
+}
+.Footer-bottomfooter .social {
+  display: flex;
+}
+
+.hiddenfooter .showfooter {
+  display: inline;
+  position: absolute;
+  top: -65px;
+  left: 20px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  border-radius: 100%;
+  padding: 10px;
+}
+@media screen and (min-width: 1248px) {
+  .hiddenfooter .showfooter {
+    left: calc((100vw - 1200px) / 2);
+  }
+}
+.hiddenfooter .Footer {
+  position: fixed;
+  bottom: -270px;
+  left: 0;
+  width: 100%;
+  transition: 0.3s;
+}
+.hiddenfooter .Footer.open {
+  bottom: 0px;
+}
+
+@media screen and (min-width: 760px) {
+  .Header {
+    position: static;
+  }
+  .Header #burger {
+    display: none;
+  }
+  .Header-nav {
+    position: static;
+  }
+  .Header-nav .searchbtn {
+    border: 0;
+    padding: 8px;
+  }
+  .Header-nav-logo h1 {
+    margin-right: 20px;
+    font-size: 24px;
+  }
+  .Header-nav-form input {
+    padding-right: 10px;
+    margin-right: 0px;
+  }
+  .Header-nav-menu-link {
+    margin-left: 10px;
+  }
+  .Header-nav-menu-link.desktop {
+    display: flex;
+    flex-direction: column;
+  }
+  .Header-nav .active {
+    display: inline;
+    position: static;
+    padding: 0;
+  }
+  .Header-nav-link {
+    display: inline;
+    position: static;
+    z-index: 1;
+    padding: 0px;
+  }
+  .Header-nav-link-menu {
+    margin-bottom: 0px;
+    font-size: 12px;
+    font-family: "Montserrat", sans-serif;
+    padding: 5px;
+  }
+  .Header-nav-link-menu.mobile {
+    display: none;
+  }
+  .Header-figure {
+    min-height: 180px;
+  }
+  .Header-figure-form input {
+    width: 550px;
+    padding: 10px;
+  }
+  .Header-figure .searchbtn {
+    padding: 10px;
+    margin-right: -2px;
+    border: 0;
+  }
+  .Header-figure-author {
+    font-size: 10px;
+  }
+  .Header-profil-img {
+    height: 100px;
+    width: 100px;
+  }
+  .Header-profil-info-name {
+    margin: 10px 10px;
+  }
+  .Header-profil-info-role {
+    margin: 10px 10px;
+  }
+  .Header-profil-info-bio {
+    margin: 10px 10px;
+  }
+  .Header .dow, .Header .fav {
+    bottom: 30px;
+    left: 20px;
+    font-size: 10px;
+  }
+  .Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 40px 0 40px;
+  }
+  .Container-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1000px;
+    position: relative;
+  }
+  .Container-box-imgbox {
+    width: 32.5%;
+  }
+  .Container-box-imgbox-fig {
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  .Container-box-imgbox-fig-name {
+    font-size: 18px;
+  }
+  .Container-box-imgbox-fig-img {
+    width: 100%;
+  }
+  .Footer-topfooter-name {
+    margin-left: 60px;
+  }
+  .Footer-topfooter-name-logo {
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  .Footer-topfooter-name-slogan {
+    font-size: 14px;
+  }
+  .Footer-topfooter-legal {
+    display: flex;
+  }
+  .Footer-topfooter-legal-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .Footer-topfooter-legal-link {
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+  .Footer-topfooter-us {
+    display: flex;
+  }
+  .Footer-topfooter-us-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+  }
+  .Footer-topfooter-us-link {
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+  .Footer-topfooter-nav {
+    margin: 10px;
+    margin-right: 60px;
+  }
+  .Footer-topfooter-nav .signin {
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+  .Footer-topfooter-nav .disconnect, .Footer-topfooter-nav .login {
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+  .Footer-bottomfooter {
+    margin-top: 20px;
+    margin-left: 70px;
+    margin-right: 70px;
+    font-size: 16px;
+    padding-bottom: 20px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .Header-nav .searchbtn {
+    border: 0;
+    padding: 10px;
+  }
+  .Header-nav-logo h1 {
+    margin-right: 20px;
+    font-size: 32px;
+  }
+  .Header-nav-form input {
+    padding: 10px 40px;
+    padding-left: 15px;
+    margin-right: 0px;
+  }
+  .Header-nav-menu-link {
+    margin: 0 15px;
+    font-size: 12px;
+  }
+  .Header-nav .active {
+    display: inline;
+    position: static;
+    padding: 0;
+  }
+  .Header-nav-link {
+    display: inline;
+    position: static;
+    z-index: 1;
+    padding: 0px;
+  }
+  .Header-nav-link-menu {
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    padding: 5px;
+    padding-right: 20px;
+  }
+  .Header-nav-link-menu.mobile {
+    display: none;
+  }
+  .Header-figure {
+    min-height: 250px;
+  }
+  .Header-figure-form input {
+    width: 800px;
+  }
+  .Header-figure-author {
+    font-size: 12px;
+  }
+  .Footer-topfooter-name {
+    margin-left: 80px;
+  }
+  .Footer-topfooter-name-logo {
+    margin-bottom: 5px;
+  }
+  .Footer-topfooter-legal-link {
+    margin-bottom: 10px;
+  }
+  .Footer-topfooter-us-link {
+    margin-bottom: 10px;
+  }
+  .Footer-topfooter-nav {
+    margin: 20px;
+    margin-right: 80px;
+  }
+  .Footer-topfooter-nav .signin {
+    margin-bottom: 10px;
+    padding: 7px;
+  }
+  .Footer-topfooter-nav .disconnect, .Footer-topfooter-nav .login {
+    margin-bottom: 10px;
+    padding: 7px;
+  }
+  .Footer-bottomfooter {
+    margin-left: 70px;
+    margin-right: 70px;
+    padding-bottom: 20px;
+  }
+}/*# sourceMappingURL=style.css.map */
