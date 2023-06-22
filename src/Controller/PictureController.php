@@ -7,6 +7,7 @@ use Otopix\Repository\CategoryRepository;
 use Otopix\Repository\PictureRepository;
 use Otopix\Model\Category;
 use Otopix\Model\User;
+use Otopix\Manager\DbManager;
 
 
 
@@ -108,5 +109,47 @@ class PictureController extends AbstractController
     }
 
 
+    /**
+     * @return string
+     */
+    public function download(): string
+    {
+           $oPicture = PictureRepository::find($_GET['picture']);
+
+           $sFile = __DIR__ . '/../../uploads/' . $oPicture -> getPicture();
+
+
+            header('Content-disposition: attachment; filename="' . basename($sFile) . '"');
+
+            $iNewValue = $oPicture->getNbDownloads()+1;
+            $oPicture->setNbDownloads($iNewValue);
+            PictureRepository::save($oPicture);
+            
+            return readfile($sFile);
+    }
+
+
+    public function deletepicture()
+    {
+        $id =  $_GET['pictureId'];
+// Valider le paramètre picture
+
+        // security
+        if (!isset($_SESSION['user'])
+        || !$_SESSION['user'] instanceof User) {
+        // redirection vers la page d'accueil
+        $this->redirectAndDie('index.php?page=home');
+        }
         
+
+        PictureRepository::deletePictureFromAccount($id);
+        
+        $this->redirectAndDie('?page=my-account');
+
+    }
+
+
+
 }
+
+

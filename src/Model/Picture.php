@@ -7,7 +7,7 @@ class Picture
     use Timestampable;
 
     /** @var int */
-    private int $id;
+    private ?int $id = null;
 
     /** @var string */
     private string $title;
@@ -23,6 +23,9 @@ class Picture
 
     /** @var User */
     private User $user;
+
+    /** @var int */
+    private int $nbDownloads = 0;    
 
 
     /**
@@ -44,29 +47,7 @@ class Picture
     }
 
 
-    /**
-     * Get the value of id
-     *
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param int $id
-     *
-     * @return self
-     */
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
+    
 
     /**
      * Get the value of title
@@ -184,6 +165,54 @@ class Picture
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nbDownloads
+     *
+     * @return int
+     */
+    public function getNbDownloads(): int
+    {
+        return $this->nbDownloads;
+    }
+
+    /**
+     * Set the value of nbDownloads
+     *
+     * @param int $nbDownloads
+     *
+     * @return self
+     */
+    public function setNbDownloads(int $nbDownloads): self
+    {
+        $this->nbDownloads = $nbDownloads;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id
+     *
+     * @return ?int
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param ?int $id
+     *
+     * @return self
+     */
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
 
         return $this;
     }

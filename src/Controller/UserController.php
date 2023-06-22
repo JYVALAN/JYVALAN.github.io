@@ -7,6 +7,7 @@ use Otopix\Model\User;
 use Otopix\Repository\UserRepository;
 use Otopix\Service\EmailService;
 use Otopix\Repository\PictureRepository;
+use Otopix\Repository\CategoryRepository;
 
 class UserController extends AbstractController
 {
@@ -17,6 +18,8 @@ class UserController extends AbstractController
     {
         // Création du UserManager (nécessaire pour authUser)
         $oUserManager = new UserManager(new EmailService());
+
+        // $aErrors = [];
 
         // Est-ce que le formulaire de connexion a été soumis ?
         if (isset($_POST['form_login'], $_POST['field_email'], $_POST['field_password'])) {
@@ -37,7 +40,13 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->render('login.php');
+        // if(strlen($sCleanPassword)<8){
+        //     $aErrors[]='Le mot de passe doit contenir au moins 8 caractères';
+        // }
+
+        return $this->render('login.php', [
+            'categories' => CategoryRepository::findAll(),
+         ]);
     }
 
     /**
@@ -90,7 +99,9 @@ class UserController extends AbstractController
                 //array_push($_SESSION['flashes'], ['danger' => 'Compte déjà existant']);
             }
         }
-             return $this->render('signup.php');
+             return $this->render('signup.php', [
+                'categories' => CategoryRepository::findAll(),
+             ]);
     }
 
     /**
@@ -98,46 +109,61 @@ class UserController extends AbstractController
      */
     public function account(): string
     {
-        $allpictures = PictureRepository::findAll();
-        $picturecol1 = ceil(count($allpictures)/3);
-        $restpictures = count($allpictures) - $picturecol1;
+        // Récupération (+ nettoyage des données POST)
+        $aCriterias = [];
+        if (!empty($_POST)) {
+            $aCriterias = [
+                'magic-search' => strip_tags($_POST['magic-search']),
+                'category' => strip_tags($_POST['category']),
+            ];
+            // Stockage en session des critères pour la pagination
+            $_SESSION['pictures_criterias'] = $aCriterias;
+        } else {
+            // On récupère les critères de la dernière recherche
+            $aCriterias = $_SESSION['pictures_criterias'] ?? [];
+        }
+
+        $iPage = ($_GET['listing-page'] ?? 1);
+        $iNbEltsPerPage = PictureRepository::NB_ELTS_PER_PAGE;
+        $iOffset = ($iPage - 1) * $iNbEltsPerPage;
+
+        $user = $_SESSION['user'];
+        $userId = $user->getId();
+
+        $userpictures = PictureRepository::findByUserPicture($userId);
+        $picturecol1 = ceil(count($userpictures)/3);
+        $restpictures = count($userpictures) - $picturecol1;
         $picturecol2 = ceil($restpictures/2);
         $picturecol3 = $restpictures - $picturecol2;
 
-        $pictureincol1 = array_slice($allpictures, 0, $picturecol1);
-        $pictureincol2 = array_slice($allpictures, $picturecol1, $picturecol2);
-        $pictureincol3 = array_slice($allpictures, $picturecol1+$picturecol2, $picturecol3);
+        $pictureincol1 = array_slice($userpictures, 0, $picturecol1);
+        $pictureincol2 = array_slice($userpictures, $picturecol1, $picturecol2);
+        $pictureincol3 = array_slice($userpictures, $picturecol1+$picturecol2, $picturecol3);
+
 
         return $this->render('my-account.php', [
             'seo_title' => 'Mon compte',
-            'pictures' => PictureRepository::findAll(),
             'pictureincol1' => $pictureincol1,
             'pictureincol2' => $pictureincol2,
             'pictureincol3' => $pictureincol3,
+            'page' => $iPage,
+            'nb_results' => PictureRepository::countBy($aCriterias),
+            'nb_results_per_page' => $iNbEltsPerPage,
+            'categories' => CategoryRepository::findAll(),
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function like(): string
-    {
-        $allpictures = PictureRepository::findAll();
-        $picturecol1 = ceil(count($allpictures)/3);
-        $restpictures = count($allpictures) - $picturecol1;
-        $picturecol2 = ceil($restpictures/2);
-        $picturecol3 = $restpictures - $picturecol2;
+    // public function showUserPicture()
+    // {
+    //     $aUserPicture = [];
 
-        $pictureincol1 = array_slice($allpictures, 0, $picturecol1);
-        $pictureincol2 = array_slice($allpictures, $picturecol1, $picturecol2);
-        $pictureincol3 = array_slice($allpictures, $picturecol1+$picturecol2, $picturecol3);
+    //     $user = $_SESSION['user'];
+    //     $userId = $user->getId();
 
-        return $this->render('like.php', [
-            'seo_title' => 'Favoris',
-            'pictures' => PictureRepository::findAll(),
-            'pictureincol1' => $pictureincol1,
-            'pictureincol2' => $pictureincol2,
-            'pictureincol3' => $pictureincol3,
-        ]);
-    }
+    //     $aUserPicture = PictureRepository::findByUserPicture($userId);
+        
+    //     return $aUserPicture;
+
+    // }
+
 }

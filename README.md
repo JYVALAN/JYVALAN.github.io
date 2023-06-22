@@ -27,24 +27,14 @@ Inscription + Connection)_
 
 ### Ce qu'il me manque 
 
-1. Défilement infini en Ajax
+3. triage par catégories et recherche par author
 
-2. barre de recherche
+4. retirer le bouton fav quand l'image est deja liké
 
-3. triage par catégories
+9. Pouvoir modifier les titre d'image et tout
 
-4. téléchargement des images + compteur
+10. changement de photo de profil et de bio
 
-5. mise en favori des images
+11. avoir des miniatures de taille différentes (librérie GD)
 
-6. affichage des images de la personnes connecté dans le profil
-
-7. affichage seulement des favoris dans mes fav
-
-8. Trier par les plus télécharger dans l'écran d'acceuil
-
-9.  changement de photo de profil et de bio
-
-10. avoir des miniatures de taille différentes (librérie GD)
-
-changer le l'icone qui fait apparaitre le footer 
+rajouter des transitions et des effets sur le site

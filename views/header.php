@@ -14,9 +14,14 @@
                 <select class="Header-nav-link-menu" name="field_category">
                     <option value="">Catégories</option>
                     <?php
+                    
                         foreach ($categories as $oCategory) {
-                            echo '<option value="' . $oCategory->getId() . '">' . $oCategory->getName() . '</option>';
+                            $bSelected = ($_SESSION['pictures_criterias']['category'] ?? '') == $oCategory->getId();
+                            echo '<option value="'.$oCategory->getId().'" '. ($bSelected ? 'selected="selected"' : ''  ) .' >'.
+                                $oCategory->getName() .
+                                '</option>';
                         }
+
                     ?>
                 </select>
 
@@ -32,10 +37,10 @@
                 </select>
                 
             </ul>
-            <form class="Header-nav-form" action="search">
+            <form action="?page=<? $_GET['page'] ; ?>" method="POST" class="Header-nav-form" >
                 <div class="Header-nav-form-wen">
                     <button class="searchbtn"><i class="fa-solid fa-magnifying-glass fa-xs"></i></button>
-                    <input class="Header-nav-form-search" type="search" name="field_search" id="search" placeholder=" Rechercher...">
+                    <input class="Header-nav-form-search" type="search" name="magic-search" id="search" value="<?= $_SESSION['pictures_criterias']['magic-search'] ?? '' ; ?>" placeholder=" Rechercher...">
                 </div> 
             </form>
                 <nav class="Header-nav-menu">
@@ -77,16 +82,16 @@
                 <div class="Header-profil-info">
                     <h3 class="Header-profil-info-name" ><?= $_SESSION['user']->getLastname(); ?> <?= $_SESSION['user']->getFirstname(); ?></h3>
                     <em class="Header-profil-info-role"><?= $_SESSION['user']->getEmail(); ?></em>
-                    <p class="Header-profil-info-bio" name="field_bio">jnjnjnm<?= $_SESSION['user']->getBio(); ?>
+                    <p class="Header-profil-info-bio" name="field_bio"><?= $_SESSION['user']->getBio(); ?>
                     <button name="form_bio" value="bio"><i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></button></p>
                 </div>
 
         <?php } else { ?>
 
                 <figure class="Header-figure">
-                    <form action="search" class="Header-figure-form">
+                    <form action="?page=<? $_GET['page'] ; ?>" class="Header-figure-form" method="POST">
                         <button class="searchbtn"><i class="fa-solid fa-magnifying-glass fa-xs"></i></button>
-                        <input class="Header-nav-form-search" type="search" name="field_search" id="search" placeholder="Rechercher une photo...">
+                        <input class="Header-nav-form-search" value="<?= $_SESSION['pictures_criterias']['magic-search'] ?? '' ; ?>" type="search" name="magic-search" id="search" placeholder="Rechercher une photo...">
                     </form>
                     <p class="Header-figure-author">by Takashi Miyazaki</p>
                 </figure>
@@ -101,14 +106,14 @@
 
         <?php } else { ?>
 
-            <div class="Header-bottom">
+            <!-- <div class="Header-bottom">
                     <form action="popular" class="Header-bottom-form">
                         <select name="field_popular" id="" class="Header-bottom-form-sort">
                             <option value="most_download">Les plus récentes</option>
-                            <option value="most_recent">Les plus télécharger</option>
+                            <option value="most_recent">Les plus téléchargées</option>
                         </select>
                     </form>
-                </div>
+                </div> -->
 
         <?php }?>
     

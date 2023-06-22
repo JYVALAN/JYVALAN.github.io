@@ -26,7 +26,7 @@
             <button class="send" name="form_new_picture">Partager</button>
         </form>
     </fieldset>
-    <script src="../js/dropzone.js"></script>
+    <script src="./js/dropzone.js"></script>
 </main>
 
 

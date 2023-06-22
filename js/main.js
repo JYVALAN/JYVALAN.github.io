@@ -1,5 +1,5 @@
 // burger menu
-console.log('coucou');
+
 
 const navElt = document.querySelector(".Header-nav-link");
 const burgerElt = document.querySelector("#burger");
@@ -19,7 +19,9 @@ burgerElt.addEventListener("click", function(){
 
 const footer = document.querySelector(".Footer");
 const showfooter = document.querySelector(".showfooter");
+if (showfooter) {
 
+    
 showfooter.addEventListener("click", function(){
     console.log("coucou");
     //Si le UserMenu contient la classe active
@@ -32,6 +34,43 @@ showfooter.addEventListener("click", function(){
     }
 
 });
+}
 
+// const trash = document.querySelectorAll('.trashfavlink');
 
+// console.log(trash);
 
+// for(btn of trash){
+//     btn.addEventListener("click", function(event){
+//         event.preventDefault();
+//         const confirmation = confirm('Sûr de vouloir vous en débarasser?');
+
+//         if (confirmation) {
+//             window.location = btn.href;
+//             console.log('Image supprimé');
+//             return true;
+//         }
+        
+//         console.log('Image non supprimé');
+//         return false;
+//     })
+// }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const trash = document.querySelectorAll('.trashfavlink');
+
+    trash.forEach(btn => {
+        btn.addEventListener("click", function(event){
+            event.preventDefault();
+            const confirmation = confirm('Êtes-vous sûr de vouloir supprimer cette image ?');
+
+            if (confirmation) {
+                
+                window.location = btn.href; // Redirection vers le lien de suppression
+                console.log('Image supprimée');
+            } else {
+                console.log('Image non supprimée');
+            }
+        });
+    });
+});

@@ -9,7 +9,8 @@
                 alt="Illustration" class= "clickedpicture" />
             <br >
         <?php } ?>
-        <button class="dow"><i class="fa-regular fa-circle-down fa-xl"></i></button>
+        <button class="dow"><a href="?page=<?= PAGE_DOWNLOAD . '&picture=' . $picture->getId(); ?>" ><i class="fa-regular fa-circle-down fa-xl"></i></a></button>
+
         <button class="fav"><i class="fa-regular fa-heart fa-xl"></i></button>
         <div class="pictureinfo">
             <div class="profiluser">
@@ -19,6 +20,7 @@
 
             <em class="timepicture"><?= $picture->getCreatedAt()->format('d/m/Y'); ?></em><br />
             <em class="categorypicture">Catégorie: <?= $picture->getCategory()->getName(); ?></em><br />
+            <em class="categorypicture">Téléchargements: <?= $picture->getNbDownloads(); ?></em><br />
             
         </div>
         <p class="descriptionpicture">Description: <br> <br><?= $picture->getDescription(); ?></p>

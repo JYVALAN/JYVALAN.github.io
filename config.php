@@ -28,16 +28,22 @@ const PAGE_LOGIN = 'login';
 const PAGE_LOGOUT = 'logout';
 const PAGE_MY_ACCOUNT = 'mon-compte';       // page=my-account
 const PAGE_IMPORT = 'import';
+const PAGE_DOWNLOAD = 'download';
+const PAGE_DELETE_LIKE = 'deletelike';
+const PAGE_DELETE_PICTURE = 'deletepicture';
 
 // Création d'un dictionnaire/tableau associant une fonction de classe à une page
 const ROUTING = [
     PAGE_HOME => '\Otopix\Controller\DefaultController::home',
     PAGE_CONTACT => '\Otopix\Controller\DefaultController::contact',
-    PAGE_LIKE => '\Otopix\Controller\UserController::like',
+    PAGE_LIKE => '\Otopix\Controller\LikesController::like',
     PAGE_PICTURE => '\Otopix\Controller\PictureController::picture',
     PAGE_SIGNUP => '\Otopix\Controller\UserController::register',
     PAGE_LOGIN => '\Otopix\Controller\UserController::login',
     PAGE_LOGOUT => '\Otopix\Controller\UserController::logout',
     PAGE_MY_ACCOUNT => '\Otopix\Controller\UserController::account',
     PAGE_IMPORT => '\Otopix\Controller\PictureController::import',
+    PAGE_DOWNLOAD => '\Otopix\Controller\PictureController::download',
+    PAGE_DELETE_LIKE => '\Otopix\Controller\LikesController::deletelike',
+    PAGE_DELETE_PICTURE => '\Otopix\Controller\PictureController::deletepicture',
 ];

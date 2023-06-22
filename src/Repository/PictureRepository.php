@@ -1,7 +1,6 @@
 <?php
 namespace Otopix\Repository;
 
-use Otopix\Controller\AbstractController;
 use Otopix\Manager\DbManager;
 use Otopix\Model\Picture;
 
@@ -12,26 +11,41 @@ use Otopix\Model\Picture;
 final class PictureRepository extends AbstractRepository
 {
     const TABLE = 'picture';
-    const NB_ELTS_PER_PAGE = 3;
-
+    const NB_ELTS_PER_PAGE = 20;
     /**
      * @param Picture $oPicture
      *
      * @return bool
-     */
+     */ 
     public static function save(Picture $oPicture): bool
     {
         $oPdo = DbManager::getInstance();
+        
+        if ($oPicture->getId()) {
+            $sQuery = 'UPDATE `'. static::TABLE .'` 
+                    SET `category_id` = :category_id, `title` = :title, `description` = :description, `picture` = :picture, `nb_downloads` = :nb_downloads
+                    WHERE id = :id';  
 
-        $sQuery = 'INSERT INTO `'. static::TABLE .'` (`user_id`, `category_id`, `title`, `description`, `picture`, `createdAt`)
-            VALUES (:user_id, :category_id, :title, :description, :picture, :createdAt )';
-        $oPdoStatement = $oPdo->prepare($sQuery);
-        $oPdoStatement->bindValue(':user_id', $oPicture->getUser()->getId(), \PDO::PARAM_INT);
+            $oPdoStatement = $oPdo->prepare($sQuery);
+            $oPdoStatement->bindValue(':id', $oPicture->getId(), \PDO::PARAM_STR);
+        }
+        else{
+        
+            $sQuery = 'INSERT INTO `'. static::TABLE .'` (`user_id`, `category_id`, `title`, `description`, `picture`, `createdAt`, `nb_downloads`)
+            VALUES (:user_id, :category_id, :title, :description, :picture, :createdAt, :nb_downloads )';
+
+            $oPdoStatement = $oPdo->prepare($sQuery);
+            $oPdoStatement->bindValue(':user_id', $oPicture->getUser()->getId(), \PDO::PARAM_INT);
+            $oPdoStatement->bindValue(':createdAt', $oPicture->getCreatedAt()->format('Y-m-d H:i:s'), \PDO::PARAM_STR);
+        }
+
+        
         $oPdoStatement->bindValue(':category_id', $oPicture->getCategory()->getId(), \PDO::PARAM_INT);
         $oPdoStatement->bindValue(':title', $oPicture->getTitle(), \PDO::PARAM_STR);
         $oPdoStatement->bindValue(':description', $oPicture->getDescription(), \PDO::PARAM_STR);
         $oPdoStatement->bindValue(':picture', $oPicture->getPicture(), \PDO::PARAM_STR);
-        $oPdoStatement->bindValue(':createdAt', $oPicture->getCreatedAt()->format('Y-m-d H:i:s'), \PDO::PARAM_STR);
+        $oPdoStatement->bindValue(':nb_downloads', $oPicture->getNbDownloads(), \PDO::PARAM_INT);
+        
 
         return $oPdoStatement->execute();
     }
@@ -123,12 +137,14 @@ final class PictureRepository extends AbstractRepository
             $oCategoryPic,
             $aDbInfo['picture'],
             $oUserPic
+
         );
 
         // >> (2) attribution des valeurs (concept d'hydratation)
         $oPicture->setId( $aDbInfo['id'] );
         $oPicture->setPicture( $aDbInfo['picture'] );
         $oPicture->setCreatedAt( new \DateTime($aDbInfo['createdAt'] ));
+        $oPicture->setNbDownloads($aDbInfo['nb_downloads']);
 
         return $oPicture;
     }
@@ -153,18 +169,6 @@ final class PictureRepository extends AbstractRepository
             $aParams[':magicsearch'] = '%'. $aCriterias['magic-search'] .'%';
         }
 
-        // 3. Si "from" est défini (et non vide) dans mon tableau de critères ($aCriterias)
-        if (!empty($aCriterias['from'])) {
-            $aWhere[] = '(`createdAt` >= :from)';
-            $aParams[':from'] = $aCriterias['from'] .' 00:00:00';
-        }
-
-        // 4. Si "to" est défini (et non vide) dans mon tableau de critères ($aCriterias)
-        if (!empty($aCriterias['to'])) {
-            $aWhere[] = '(`createdAt` <= :to)';
-            $aParams[':to'] = $aCriterias['to'] .' 23:59:59';
-        }
-
         $sWhere = '';
         if (count($aWhere) > 0) {
             // Si au moins un critère de recherche, on applique le WHERE et chaque condition (c1 AND c2 AND c3)
@@ -176,4 +180,151 @@ final class PictureRepository extends AbstractRepository
             'params' => $aParams,
         ];
     }
+
+    // /**
+    //  * @param array $aCriterias
+    //  *
+    //  * @return Picture[]
+    //  * @throws \Exception
+    //  */
+    // public static function findByLike(array $aCriterias, int $iOffset = 0, int $iNbElts = self::NB_ELTS_PER_PAGE): array
+    // {
+    //     $oPdo = DbManager::getInstance();
+
+    //     $aCriteriasInfo = static::buildCriterias($aCriterias);
+
+    //     // -- Security
+    //     if ($iOffset <= 0) {
+    //         $iOffset = 0;
+    //     }
+
+    //     $sQuery = 'SELECT * FROM `'. static::TABLE .'`' . $aCriteriasInfo['where'];
+    //     $sQuery .= ' LIMIT ' . implode(', ', [$iOffset, $iNbElts]);
+    //     SELECT picture.*
+    //     FROM picture
+    //     INNER JOIN likes ON picture.id = likes.picture_id
+        
+    //     // Execution de la requête (query)
+    //     $oPdoStatement = $oPdo->prepare($sQuery);
+    //     $oPdoStatement->execute($aCriteriasInfo['params']);
+
+    //     // Parcours des résultats (while + fetch)
+    //     return static::extracted($oPdoStatement);
+    // }
+
+// /**
+// *@param int $iId
+// *@return Picture|null
+// *@throws \Exception
+// */
+// public static function findByLike(int $iId): ?Picture {
+//     $oPdo = DbManager::getInstance();
+
+//     // Préparation de la requête
+//     $sQuery = 'SELECT p.* FROM '. static::TABLE .' AS p '.
+//               'INNER JOIN likes AS l ON p.id = l.picture_id '.
+//               'WHERE p.id = :id';
+
+//     // Utilisation des "requêtes préparées" pour se prémunir des injections SQL
+//     // -- On prépare la requête
+//     $oPdoStatement = $oPdo->prepare($sQuery);
+//     // -- On associe les paramètres
+//     $oPdoStatement->bindValue(':id', $iId, \PDO::PARAM_INT);
+//     // -- On exécute la requête
+//     $oPdoStatement->execute();
+
+//     // Récupérer l'image appropriée (tableau)
+//     $aDbInfo = $oPdoStatement->fetch();
+
+//     // On retourne soit l'objet hydraté, soit NULL
+//     return $aDbInfo ? static::hydrate($aDbInfo) : NULL;
+// }
+
+    /** 
+    *@param int $userId
+    *@return array
+    *@throws \Exception
+    */
+    public static function findByUserLikes(int $userId): array 
+    {
+        $oPdo = DbManager::getInstance();
+
+        // Préparation de la requête
+        $sQuery = 'SELECT p.* FROM '. static::TABLE .' AS p '.
+                'INNER JOIN likes AS l ON p.id = l.picture_id '.
+                'WHERE l.user_id = :user_id';
+
+        // Utilisation des "requêtes préparées" pour se prémunir des injections SQL
+        // -- On prépare la requête
+        $oPdoStatement = $oPdo->prepare($sQuery);
+        // -- On associe les paramètres
+        $oPdoStatement->bindValue(':user_id', $userId, \PDO::PARAM_INT);
+        // -- On exécute la requête
+        $oPdoStatement->execute();
+
+        // Récupérer toutes les images aimées par l'utilisateur (tableau de tableaux)
+        $aDbInfo = $oPdoStatement->fetchAll();
+
+        // Transformer chaque tableau d'informations de la base de données en objet Picture
+        $pictures = [];
+        foreach ($aDbInfo as $pictureData) {
+            $pictures[] = static::hydrate($pictureData);
+        }
+
+        // On retourne soit le tableau d'objets Picture, soit un tableau vide
+        return $pictures;
+    }
+
+    /**
+     * @return string
+     */
+    public static function deletePictureFromAccount(int $id): string
+    {
+        
+        $oPdo = DbManager::getInstance();
+
+        // Préparation de la requête
+        $sQuery = 'DELETE FROM picture'.
+            ' WHERE id = :id';
+
+        // Utilisation des "requêtes préparées" pour se prémunir des injections SQL
+        // -- On prépare la requête
+        $oPdoStatement = $oPdo->prepare($sQuery);
+        // -- On associe les paramètres
+        $oPdoStatement->bindValue(':id', $id, \PDO::PARAM_INT);
+        // -- On exécute la requête
+        $executeIsOk = $oPdoStatement->execute();
+
+        if($executeIsOk){
+            $message = "L'image n'est plus dans vos favoris"; 
+        }
+        else{
+            $message = 'Echec de la suppression du favori';
+        }
+
+        return $message;
+    }
+
+
+    public static function findByUserPicture(int $userid)
+    {
+        
+        $oPdo = DbManager::getInstance();
+
+        // Préparation de la requête
+        $sQuery = 'SELECT * FROM picture'.
+            ' WHERE user_id = :user_id';
+
+        // Utilisation des "requêtes préparées" pour se prémunir des injections SQL
+        // -- On prépare la requête
+        $oPdoStatement = $oPdo->prepare($sQuery);
+        // -- On associe les paramètres
+        $oPdoStatement->bindValue(':user_id', $userid, \PDO::PARAM_INT);
+        // -- On exécute la requête
+        $oPdoStatement->execute();
+
+        return static::extracted($oPdoStatement);
+
+    }
+
 }

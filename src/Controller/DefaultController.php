@@ -3,7 +3,8 @@ namespace Otopix\Controller;
 
 use Otopix\Repository\PictureRepository;
 use Otopix\Manager\DbManager;
-
+use Otopix\Repository\CategoryRepository;
+use Otopix\Repository\LikesRepository;
 
 //nb total de photo/3 = nb photo colonne 1 arrondi au superieur
 //nb total - nb photo colonne 1 arrondi au superieur = nb photo restante
@@ -20,8 +21,26 @@ class DefaultController extends AbstractController
      * @return string
      */
     public function home(): string
-    {
-        $allpictures = PictureRepository::findAll();
+    {       
+         // Récupération (+ nettoyage des données POST)
+        $aCriterias = [];
+        if (!empty($_POST)) {
+            $aCriterias = [
+                'magic-search' => strip_tags($_POST['magic-search']),
+                'category' => strip_tags($_POST['category']),
+            ];
+            // Stockage en session des critères pour la pagination
+            $_SESSION['pictures_criterias'] = $aCriterias;
+        } else {
+            // On récupère les critères de la dernière recherche
+            $aCriterias = $_SESSION['pictures_criterias'] ?? [];
+        }
+
+        $iPage = ($_GET['listing-page'] ?? 1);
+        $iNbEltsPerPage = PictureRepository::NB_ELTS_PER_PAGE;
+        $iOffset = ($iPage - 1) * $iNbEltsPerPage;
+
+        $allpictures = PictureRepository::findBy($aCriterias, $iOffset, $iNbEltsPerPage);
         $picturecol1 = ceil(count($allpictures)/3);
         $restpictures = count($allpictures) - $picturecol1;
         $picturecol2 = ceil($restpictures/2);
@@ -31,14 +50,32 @@ class DefaultController extends AbstractController
         $pictureincol2 = array_slice($allpictures, $picturecol1, $picturecol2);
         $pictureincol3 = array_slice($allpictures, $picturecol1+$picturecol2, $picturecol3);
 
+        //On récupère les id des images en favoris pour les comparer à la page d'acceuil et savoir si la photo à été liké ou non
+        $aUserFavoriteId = [];
+
+        $aUserFavoriteId = LikesRepository::findLikeId();
+        dump($aUserFavoriteId);
+        $aAllFavoriteId = [];
+        foreach($aUserFavoriteId as $userFavorite){
+            $FavoriteId = $userFavorite -> getPictureId();
+            $aAllFavoriteId [] = $FavoriteId ;
+            
+        }
+  
+
         return $this->render('home.php', [
             'seo_title' => 'Accueil',
-            'pictures' => PictureRepository::findAll(),
+            'categories' => CategoryRepository::findAll(),
             'pictureincol1' => $pictureincol1,
             'pictureincol2' => $pictureincol2,
             'pictureincol3' => $pictureincol3,
+            'page' => $iPage,
+            'nb_results' => PictureRepository::countBy($aCriterias),
+            'nb_results_per_page' => $iNbEltsPerPage,
+            'userFavoriteId' => $aAllFavoriteId,
         ]);
     }
+
 
     /**
      * @return string
@@ -61,6 +98,7 @@ class DefaultController extends AbstractController
 
         return $this->render('contact.php', [
             'seo_title' => 'Me contacter',
+            'categories' => CategoryRepository::findAll(),
         ]);
     }
 

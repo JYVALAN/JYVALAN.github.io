@@ -30,10 +30,12 @@ $oDebugbar['messages']->addMessage('hello world!');
         <link rel="stylesheet" href="css/signup.css">
         <link rel="stylesheet" href="css/picture.css">
 
-        <!-- JS -->
 
-        <script defer src="./js/main.js"></script>
-        <script defer src="./js/dropzone.js"></script>
+        <!-- JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        
+        <script type="module" defer src="./js/main.js"></script>
+        
 
         <?php echo $oDebugbarRenderer->renderHead(); ?>
 	</head>

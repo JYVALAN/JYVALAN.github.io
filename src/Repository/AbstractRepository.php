@@ -6,7 +6,7 @@ use Otopix\Manager\DbManager;
 
 abstract class AbstractRepository
 {
-    const NB_ELTS_PER_PAGE = 10;
+    
 
     /**
      * abstract : permet de ne pas écrire le code de la fonction
@@ -21,7 +21,7 @@ abstract class AbstractRepository
      */
     abstract public static function find(int $iId): ?object;
 
-    abstract public static function findBy(array $aCriterias, int $iOffset = 0, int $iNbElts = self::NB_ELTS_PER_PAGE): array;
+    abstract public static function findBy(array $aCriterias): array;
 
     abstract protected static function buildCriterias(array $aCriterias): array;
 

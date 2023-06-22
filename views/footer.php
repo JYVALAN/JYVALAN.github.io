@@ -1,9 +1,9 @@
 <?php
     use Otopix\Model\User;
 ?>
-
+<!-- <i class="fa-solid fa-circle-info fa-2xl" style="color: #00000a;"></i> -->
 <footer class="Footer">
-<button class="showfooter"><i class="fa-solid fa-circle-info fa-2xl" style="color: #00000a;"></i></button>  
+<button class="showfooter">Footer</button>  
     <div class="Footer-topfooter">
         <div class="Footer-topfooter-name">
             <h2 class="Footer-topfooter-name-logo">Otopix</h2>
