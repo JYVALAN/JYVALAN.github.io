@@ -45,7 +45,7 @@ final class PictureRepository extends AbstractRepository
         $oPdoStatement->bindValue(':description', $oPicture->getDescription(), \PDO::PARAM_STR);
         $oPdoStatement->bindValue(':picture', $oPicture->getPicture(), \PDO::PARAM_STR);
         $oPdoStatement->bindValue(':nb_downloads', $oPicture->getNbDownloads(), \PDO::PARAM_INT);
-        
+    
 
         return $oPdoStatement->execute();
     }

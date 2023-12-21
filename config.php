@@ -6,8 +6,9 @@ define('ENV', strpos($_SERVER['HTTP_HOST'], 'localhost') !== false ? 'developmen
 
 // On masque les erreurs (en production)
 if (ENV !== 'development') {
-    ini_set('display_errors', false);
+    ini_set('display_errors', true);
 }
+
 
 const DIR_DATABASE = 'database';
 const DIR_UPLOADS = 'uploads';

@@ -82,7 +82,7 @@ class UserController extends AbstractController
             if (!UserRepository::isExist($sCleanEmail)) {
                 // Hash the password
                 $sHashedPassword = $oUserManager->hashUserPassword($sCleanPassword);
-                $oUser = new User($sCleanLastname, $sCleanFirstname, $sCleanEmail, $sHashedPassword, $sCleanUserPicture, $sCleanBio);
+                $oUser = new User($sCleanLastname, $sCleanFirstname, $sCleanEmail, $sHashedPassword);
 
                 // On sauvegarde l'article sous forme d'objet
                 UserRepository::save($oUser);
@@ -93,6 +93,7 @@ class UserController extends AbstractController
 
                 // redirection vers la page 'Mon compte'
                 $this->redirectAndDie('index.php?page='. PAGE_MY_ACCOUNT);
+                
 
             } else {
                 $_SESSION['flashes'][] = ['danger' => 'Compte déjà existant'];

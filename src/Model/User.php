@@ -27,7 +27,7 @@ class User implements UserAuthentificationInterface
     ];
 
     /** @var int */
-    private int $id;
+    private int $id = 0;
 
     /** @var string */
     private string $lastname;
@@ -61,15 +61,15 @@ class User implements UserAuthentificationInterface
      * @param string $sUser_picture
      * @param string $sBio
      */
-    public function __construct(string $sLastname, string $sFirstname, string $sEmail, string $sPassword, ?string $sUser_picture, ?string $sBio)
+    public function __construct(string $sLastname, string $sFirstname, string $sEmail, string $sPassword)
     {
         $this->lastname = $sLastname;
         $this->firstname = $sFirstname;
         $this->email = $sEmail;
         $this->password = $sPassword;
 
-        $this->user_picture = $sUser_picture;
-        $this->bio = $sBio;
+        // $this->user_picture = $sUser_picture;
+        // $this->bio = $sBio;
         $this->role = self::ROLE_USER;
         $this->createdAt = new \DateTime();
         $this->connectedAt = new \DateTime();

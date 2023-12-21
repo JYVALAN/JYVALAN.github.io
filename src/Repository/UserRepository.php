@@ -147,7 +147,7 @@ final class UserRepository extends AbstractRepository
             $oPdoStatement = $oPdo->prepare($sQuery);
             $oPdoStatement->bindValue(':id', $oUser->getId(), \PDO::PARAM_STR);
         } else {
-            $sQuery = 'INSERT INTO ' . static::TABLE . ' (`lastname`, `firstname`, `email`, `password`, `user_picture`, `bio`, `role`, `createdAt`, `connectedAt`)
+            $sQuery = 'INSERT INTO ' . static::TABLE . ' (`lastname`, `firstname`, `email`, `password`,`user_picture`, `bio`, `role`, `createdAt`, `connectedAt`)
             VALUES (:lastname, :firstname, :email, :password, :user_picture, :bio, :role, :createdAt, :connectedAt)';
             $oPdoStatement = $oPdo->prepare($sQuery);
         }
@@ -173,7 +173,7 @@ final class UserRepository extends AbstractRepository
     protected static function hydrate(array $aDbInfo): User
     {
         // (1) création de l'objet
-        $oUser = new User($aDbInfo['lastname'], $aDbInfo['firstname'], $aDbInfo['email'], $aDbInfo['password'], $aDbInfo['user_picture'], $aDbInfo['bio']);
+        $oUser = new User($aDbInfo['lastname'], $aDbInfo['firstname'], $aDbInfo['email'], $aDbInfo['password']);
      
         // >> (2) attribution des valeurs (concept d'hydratation)
         $oUser->setId($aDbInfo['id']);
