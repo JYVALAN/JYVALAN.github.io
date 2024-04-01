@@ -3,6 +3,8 @@ namespace Otopix\Repository;
 
 use Otopix\Manager\DbManager;
 use Otopix\Model\Likes;
+use Otopix\Model\User;
+
 
 /**
  * Repository : classe visant à regrouper des fonctions de gestion (load/save)
@@ -197,26 +199,31 @@ final class LikesRepository extends AbstractRepository
     }
 
     public static function findLikeId()
-    {
-        
+    {     
         $oPdo = DbManager::getInstance();
 
+        
+        if(isset($_SESSION['user']) && $_SESSION['user'] instanceof User){
+            $user = $_SESSION['user'];
+            $userid = $user->getId();
+        
+        
+
         // Préparation de la requête
-        $sQuery = 'SELECT * FROM likes';
+        $sQuery = 'SELECT * FROM likes'.
+        ' WHERE user_id = :user_id';
 
         // Utilisation des "requêtes préparées" pour se prémunir des injections SQL
         // -- On prépare la requête
         $oPdoStatement = $oPdo->prepare($sQuery);
         // -- On associe les paramètres
-        // $oPdoStatement->bindValue(':user_id', $userid, \PDO::PARAM_INT);
+        $oPdoStatement->bindValue(':user_id', $userid, \PDO::PARAM_INT);
         // -- On exécute la requête
         $oPdoStatement->execute();
-
+        
         return static::extracted($oPdoStatement);
-
+        }else{
+            return null;
+        }
     }
-
-
-
-
 }

@@ -56,12 +56,13 @@ class DefaultController extends AbstractController
         $aUserFavoriteId = LikesRepository::findLikeId();
         //dump($aUserFavoriteId);
         $aAllFavoriteId = [];
-        foreach($aUserFavoriteId as $userFavorite){
-            $FavoriteId = $userFavorite -> getPictureId();
-            $aAllFavoriteId [] = $FavoriteId ;
-            
+        if(isset($aUserFavoriteId) && is_array($aUserFavoriteId)) {
+            foreach($aUserFavoriteId as $userFavorite){
+                $FavoriteId = $userFavorite -> getPictureId();
+                $aAllFavoriteId [] = $FavoriteId ;
+                
+            }
         }
-  
 
         return $this->render('home.php', [
             'seo_title' => 'Accueil',

@@ -77,7 +77,7 @@
 
             <figure class="Header-profil">
                 <form action="POST" class="change-user-form">
-                    <input type="file" class="change-user-picture" name="form_user_picture" value="user_picture"><img class="Header-profil-img" src="./mockups/cameraprofil.png" name="field_user_picture" alt=""></input>
+                    <input type="file" class="change-user-picture" name="form_user_picture" value="user_picture"><img class="Header-profil-img" src="../img/alexander-dimitrov-vcYhtIPqzSk-unsplash.jpg" name="field_user_picture" alt=""></input>
                 </form>
                 <div class="Header-profil-info">
                     <h3 class="Header-profil-info-name" ><?= $_SESSION['user']->getLastname(); ?> <?= $_SESSION['user']->getFirstname(); ?></h3>
