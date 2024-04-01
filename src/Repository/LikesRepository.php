@@ -87,8 +87,8 @@ final class LikesRepository extends AbstractRepository
     {
         $oPdo = DbManager::getInstance();
 
-        $sQuery = 'INSERT INTO ' . static::TABLE . ' (`user_id`, `picture_id`, `created_at`)
-        VALUES (:user_id, :picture_id, :created_at)';
+        $sQuery = 'INSERT INTO ' . static::TABLE . ' (`user_id`, `picture_id`, `createdAt`)
+        VALUES (:user_id, :picture_id, :createdAt)';
         $oPdoStatement = $oPdo->prepare($sQuery);
 
             
@@ -101,7 +101,7 @@ final class LikesRepository extends AbstractRepository
         // $oPdoStatement->bindValue(':id', $oLikes->getId(), \PDO::PARAM_STR);
         $oPdoStatement->bindValue(':user_id', $oLikes->getUserId(), \PDO::PARAM_STR);
         $oPdoStatement->bindValue(':picture_id', $oLikes->getPictureId(), \PDO::PARAM_STR);
-        $oPdoStatement->bindValue(':created_at', $oLikes->getCreatedAt()->format('Y-m-d H:i:s'), \PDO::PARAM_STR);
+        $oPdoStatement->bindValue(':createdAt', $oLikes->getCreatedAt()->format('Y-m-d H:i:s'), \PDO::PARAM_STR);
 
         return $oPdoStatement->execute();
     }
@@ -127,7 +127,7 @@ final class LikesRepository extends AbstractRepository
         $oLikes->setId($aDbInfo['id']);
         $oLikes->setPictureId($aDbInfo['picture_id']);
         $oLikes->setUserId($aDbInfo['user_id']);
-        $oLikes->setCreatedAt(new \DateTime($aDbInfo['created_at']));
+        $oLikes->setCreatedAt(new \DateTime($aDbInfo['createdAt']));
 
         return $oLikes;
     }

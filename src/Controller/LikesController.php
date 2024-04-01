@@ -35,14 +35,14 @@ class LikesController extends AbstractController
 
         if(isset($_SESSION['user']) && $_SESSION['user'] instanceof User){ 
 
-            // $oPdo = DbManager::getInstance();
+            $oPdo = DbManager::getInstance();
 
         //1°) Récupérer les données de la requête : l'id de l'image que tu veux mettre en favoris
             if(isset($_GET['pictureId'])){
                 $pictureId = intval($_GET['pictureId']) ;
 
                 $oPicture = PictureRepository::find($pictureId);
-                // $userId = $oPicture->getUser()->getId();
+                //$userId = $oPicture->getUser()->getId();
                 $user = $_SESSION['user'];
                 $userId = $user->getId();
                 $oLikes = new Likes();
@@ -50,6 +50,7 @@ class LikesController extends AbstractController
                 $oLikes -> setUserId($userId);
                 $oLikes -> setPictureId($pictureId);
                 LikesRepository::save($oLikes);
+                //dump($oLikes);
                 
                 $this->redirectAndDie('?page=like');
             }
@@ -58,8 +59,7 @@ class LikesController extends AbstractController
             $user = $_SESSION['user'];
             $userId = $user->getId();
            
-            
-            // dump($user);
+            //dump($user);
 
             $iPage = ($_GET['listing-page'] ?? 1);
             $iNbEltsPerPage = PictureRepository::NB_ELTS_PER_PAGE;

@@ -18,7 +18,7 @@ const EMAIL_ADMIN = 'admin@gmail.com';
 const DB_HOST = 'localhost';
 const DB_NAME = 'otopix';
 const DB_USER = 'root';
-const DB_PWD = '';
+const DB_PWD = 'jaouadidu84';
 
 const PAGE_HOME = 'home';
 const PAGE_CONTACT = 'contact';

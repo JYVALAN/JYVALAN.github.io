@@ -54,7 +54,7 @@ class DefaultController extends AbstractController
         $aUserFavoriteId = [];
 
         $aUserFavoriteId = LikesRepository::findLikeId();
-        dump($aUserFavoriteId);
+        //dump($aUserFavoriteId);
         $aAllFavoriteId = [];
         foreach($aUserFavoriteId as $userFavorite){
             $FavoriteId = $userFavorite -> getPictureId();
